@@ -12,9 +12,11 @@
         </button>
         <a class="navbar-brand" href="/summary" sec:authorize="hasAnyAuthority('APPLICANT','EMPLOYER') ">Home</a>
 
-        <a class="nav-link dropdown-toggle" href="/list" id="navbarDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authorize="isAuthenticated()"><span th:if="${#authorization.expression('hasAnyAuthority(''APPLICANT'',''ADMIN'')')} ">Applicant View</span></a>
-        <a class="nav-link dropdown-toggle" href="/list" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authorize="isAuthenticated()"><span th:if="${#authorization.expression('hasAnyAuthority(''EMPLOYER'',''ADMIN'')')} ">Employer View</span></a>
+        <a class="nav-link dropdown-toggle" href="/list" id="navbarDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authorize="isAuthenticated()"><span th:if="${#authorization.expression('hasAnyAuthority(''APPLICANT'',''ADMIN'')')} ">Applicant Menu</span></a>
+        <a class="nav-link dropdown-toggle" href="/list" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authorize="isAuthenticated()"><span th:if="${#authorization.expression('hasAnyAuthority(''EMPLOYER'',''ADMIN'')')} ">Employer Menu</span></a>
         <span sec:authorize="isAuthenticated()"><a href="/logout">logout</a></span>
+        <a class="nav-link js-scroll-trigger" href="/login" sec:authorize="isAnonymous()">Log In</a>
+        <a class="nav-link js-scroll-trigger" href="/login" sec:authorize="isAnonymous()">register</a>
     </nav>
 </div>
 </body>

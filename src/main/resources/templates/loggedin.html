@@ -8,6 +8,7 @@
 <div th:replace="base :: navbar"></div>
 <div class="welcome">
     <span sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span></span>
+
 </div>
 </body>
 </html>

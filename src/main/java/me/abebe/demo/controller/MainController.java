@@ -3,7 +3,9 @@ package me.abebe.demo.controller;
 import me.abebe.demo.model.Users;
 import me.abebe.demo.repo.RolesRepository;
 import me.abebe.demo.repo.UsersRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -36,17 +40,22 @@ public String showIndex(){
     public String registerUser(Model model)
     {
         model.addAttribute("newuser",new Users());
+
         return "register";
     }
     @PostMapping("/register")
-    public String saveUser(@Valid @ModelAttribute("newuser") Users user, BindingResult result, HttpServletRequest request)
+    public String saveUser(@Valid @ModelAttribute("newuser") Users user, BindingResult result, HttpServletRequest request, Authentication auth, Model model)
     {
         if(result.hasErrors())
         {
             return "register";
         }
+        Set<GrantedAuthority> userAuthorities = new HashSet<>();
+        if(auth!=null)
+        {
 
-
+            model.addAttribute("person",usersRepository.findUsersByUserName(auth.getName()));
+        }
         if(request.getParameter("isEmployer")!=null)
             user.AddRole(rolesRepository.findRolesByRoleName("EMPLOYER"));
         else if(request.getParameter("isApplicant")!=null)
